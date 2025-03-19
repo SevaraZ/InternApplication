@@ -10,7 +10,7 @@ data class WeatherResponse(val main: Main)
 data class Main(val temp: Float)
 
 interface WeatherApi {
-    @GET("data/2.5/weather?q=Tashkent&appid=YOUR_API_KEY&units=metric")
+    @GET("data/2.5/weather?q=Tashkent&appid=https://openweathermap.org/api")
     suspend fun getWeather(): WeatherResponse
 }
 
