@@ -14,11 +14,11 @@ fun MainMenu(navController: NavHostController) {
         verticalArrangement = Arrangement.Center
     ) {
         Button(onClick = { navController.navigate("weather_screen") }) {
-            Text("Погода в Ташкенте")
+            Text("Weather")
         }
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { navController.navigate("stopwatch_screen") }) {
-            Text("Секундомер")
+            Text("Stopwatch")
         }
     }
 }
