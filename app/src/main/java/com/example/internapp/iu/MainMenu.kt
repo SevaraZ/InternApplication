@@ -4,7 +4,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,12 +28,10 @@ fun MainMenu(navController: NavHostController) {
         ) {
             MenuItem(
                 title = "Weather",
-                icon = Icons.Filled,
                 onClick = { navController.navigate("weather_screen") }
             )
             MenuItem(
                 title = "Stopwatch",
-                icon = Icons.Filled,
                 onClick = { navController.navigate("stopwatch_screen") }
             )
         }
@@ -42,7 +39,7 @@ fun MainMenu(navController: NavHostController) {
 }
 
 @Composable
-fun MenuItem(title: String, icon: Icons.Filled, onClick: () -> Unit) {
+fun MenuItem(title: String, onClick: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

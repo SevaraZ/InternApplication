@@ -1,29 +1,66 @@
 package com.example.internapp.iu
 
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.internapp.viewmodel.StopwatchViewModel
 
 @Composable
 fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
     Column(
-        modifier = Modifier.fillMaxSize().padding(16.dp),
-        verticalArrangement = Arrangement.Center
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text("Время: ${viewModel.time}s")
-        Spacer(modifier = Modifier.height(16.dp))
-        Row {
-            Button(onClick = { viewModel.startStop() }) {
+        Card(
+            modifier = Modifier
+                .padding(16.dp)
+                .fillMaxWidth(),
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
+        ) {
+            Text(
+                text = "${viewModel.time} s",
+                fontSize = 48.sp,
+                color = Color.White,
+                fontWeight = FontWeight.Bold,
+                modifier = Modifier
+                    .padding(32.dp)
+                    .align(Alignment.CenterHorizontally)
+            )
+        }
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Button(
+                onClick = { viewModel.startStop() },
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = if (viewModel.isRunning) Color.Red else Color.Green
+                )
+            ) {
                 Text(if (viewModel.isRunning) "Стоп" else "Старт")
             }
-            Spacer(modifier = Modifier.width(16.dp))
-            Button(onClick = { viewModel.reset() }) {
+
+            Button(
+                onClick = { viewModel.reset() },
+                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+            ) {
                 Text("Сброс")
             }
         }
     }
 }
+
