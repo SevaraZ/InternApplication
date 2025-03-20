@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">InternApp</string>
+    <string name="app_name" translatable="false">InternApp</string>
+    <string name="loading" translatable="false">Загрузка</string>
+    <string name="update" translatable="false">Обновить</string>
+    <string name="temperature" translatable="false">Температура</string>
+    <string name="loading_error" translatable="false">Ошибка обновления</string>
+    <string name="stop" translatable="false">Стоп</string>
+    <string name="start" translatable="false">Старт</string>
+    <string name="reset" translatable="false">Сброс</string>
+
 </resources>
