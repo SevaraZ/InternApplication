@@ -7,17 +7,19 @@ import com.example.internapp.data.weatherApi
 import kotlinx.coroutines.launch
 
 class WeatherViewModel : ViewModel() {
-    var temperature by mutableStateOf("Загрузка...")
+    var temperature by mutableStateOf("Loading...")
         private set
 
     fun fetchWeather() {
         viewModelScope.launch {
             try {
                 val response = weatherApi.getWeather()
-                temperature = "Температура: ${response.main.temp}°C"
+                temperature = "Temperature: ${response.main.temp}°C"
             } catch (e: Exception) {
-                temperature = "Ошибка загрузки"
+                temperature = "Loading error"
             }
         }
     }
 }
+
+

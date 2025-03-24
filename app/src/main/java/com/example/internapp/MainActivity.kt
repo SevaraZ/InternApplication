@@ -20,6 +20,7 @@ class MainActivity : ComponentActivity() {
             InternAppTheme {
                 val navController = rememberNavController()
                 NavGraph(navController)
+
             }
         }
     }

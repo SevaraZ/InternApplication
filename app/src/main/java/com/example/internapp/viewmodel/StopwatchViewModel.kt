@@ -7,7 +7,9 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class StopwatchViewModel : ViewModel() {
-    var time by mutableStateOf(0L)
+
+
+    var time by mutableLongStateOf(0L)
         private set
     var isRunning by mutableStateOf(false)
         private set
@@ -31,3 +33,5 @@ class StopwatchViewModel : ViewModel() {
         isRunning = false
     }
 }
+
+

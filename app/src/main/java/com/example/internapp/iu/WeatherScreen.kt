@@ -18,6 +18,7 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
         Spacer(modifier = Modifier.height(16.dp))
         Button(onClick = { viewModel.fetchWeather() }) {
             Text("Обновить")
+
         }
     }
 }

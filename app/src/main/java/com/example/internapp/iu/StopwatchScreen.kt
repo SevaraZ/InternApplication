@@ -22,6 +22,9 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+        //Extract to a function
+
+
         Card(
             modifier = Modifier
                 .padding(16.dp)
@@ -40,6 +43,7 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
                     .align(Alignment.CenterHorizontally)
             )
         }
+        //-------------------------------------
 
         Row(
             modifier = Modifier.fillMaxWidth(),
@@ -48,7 +52,8 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
             Button(
                 onClick = { viewModel.startStop() },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (viewModel.isRunning) Color.Red else Color.Green
+                    containerColor = if (viewModel.isRunning) Color.Red else Color.Gray
+
                 )
             ) {
                 Text(if (viewModel.isRunning) "Стоп" else "Старт")
