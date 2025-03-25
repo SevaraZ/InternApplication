@@ -20,9 +20,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.internapp.R
 
 @Composable
 fun MainMenu(navController: NavHostController) {
@@ -38,15 +40,15 @@ fun MainMenu(navController: NavHostController) {
             modifier = Modifier.padding(24.dp)
         ) {
             MenuItem(
-                title = "Weather",
+                title = stringResource(R.string.weather),
                 onClick = { navController.navigate("weather_screen") }
             )
             MenuItem(
-                title = "Stopwatch",
+                title = stringResource(R.string.stopwatch),
                 onClick = { navController.navigate("stopwatch_screen") }
             )
             MenuItem(
-                title = "News",
+                title = stringResource(R.string.news),
                 onClick = {navController.navigate("news_screen")}
             )
         }

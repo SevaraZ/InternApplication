@@ -7,10 +7,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.internapp.R
 import com.example.internapp.viewmodel.StopwatchViewModel
 
 @Composable
@@ -54,14 +56,15 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
 
                 )
             ) {
-                Text(if (viewModel.isRunning) "Стоп" else "Старт")
+                Text(if (viewModel.isRunning) stringResource(R.string.stop)
+                else stringResource(R.string.start))
             }
 
             Button(
                 onClick = { viewModel.reset() },
                 colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
             ) {
-                Text("Сброс")
+                Text(stringResource(R.string.reset))
             }
         }
     }
