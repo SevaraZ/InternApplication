@@ -32,6 +32,13 @@ class StopwatchViewModel : ViewModel() {
         time = 0
         isRunning = false
     }
+    fun getFormattedTime(): String {
+        val hours = (time / 3600).toInt()
+        val minutes = ((time % 3600) / 60).toInt()
+        val seconds = (time % 60).toInt()
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds)
+    }
 }
+
 
 

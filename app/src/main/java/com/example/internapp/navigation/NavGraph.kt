@@ -5,6 +5,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.internapp.iu.MainMenu
+import com.example.internapp.iu.NewsScreen
 import com.example.internapp.iu.WeatherScreen
 import com.example.internapp.iu.StopwatchScreen
 
@@ -14,5 +15,6 @@ fun NavGraph(navController: NavHostController) {
         composable("main_menu") { MainMenu(navController) }
         composable("weather_screen") { WeatherScreen() }
         composable("stopwatch_screen") { StopwatchScreen() }
+        composable("news_screen") { NewsScreen() }
     }
 }

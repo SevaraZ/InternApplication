@@ -1,21 +1,16 @@
 package com.example.internapp.data
 
-
-
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
-
-data class WeatherResponse(val main: Main)
-data class Main(val temp: Float)
+import retrofit2.http.Query
 
 interface WeatherApi {
-    @GET("data/2.5/weather?q=Tashkent&appid=https://openweathermap.org/api")
-    suspend fun getWeather(): WeatherResponse
+    @GET("data/2.5/weather")
+    suspend fun getWeather(
+        @Query("lat") lat: Double = 41.3123363,
+        @Query("lon") lon: Double = 69.2787079,
+        @Query("appid") apiKey: String = "5842e585719c5f442d3fe0d7cf7de6dd",
+        @Query("units") units: String = "metric"
+    ): WeatherResponse
 }
-
-val retrofit = Retrofit.Builder()
-    .baseUrl("https://api.openweathermap.org/")
-    .addConverterFactory(GsonConverterFactory.create())
-    .build()
-val weatherApi = retrofit.create(WeatherApi::class.java)

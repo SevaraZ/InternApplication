@@ -22,8 +22,6 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        //Extract to a function
-
 
         Card(
             modifier = Modifier
@@ -34,7 +32,7 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
             colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
         ) {
             Text(
-                text = "${viewModel.time} s",
+                text = viewModel.getFormattedTime(),
                 fontSize = 48.sp,
                 color = Color.White,
                 fontWeight = FontWeight.Bold,
@@ -43,7 +41,7 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
                     .align(Alignment.CenterHorizontally)
             )
         }
-        //-------------------------------------
+
 
         Row(
             modifier = Modifier.fillMaxWidth(),
