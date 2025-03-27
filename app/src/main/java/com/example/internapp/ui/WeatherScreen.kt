@@ -1,6 +1,5 @@
-package com.example.internapp.iu
+package com.example.internapp.ui
 
-import androidx.annotation.StringRes
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -62,8 +61,34 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
                     color = Color.White,
                     fontWeight = FontWeight.Bold,
                     modifier = Modifier
-                        .padding(32.dp)
+                        .padding(16.dp)
                         .align(Alignment.CenterHorizontally))
+                Row (
+                    modifier = Modifier.fillMaxWidth()
+                        .padding(16.dp),
+
+                    horizontalArrangement = Arrangement.SpaceEvenly
+                ){
+                    Text("Feels like: ${weatherData?.main?.feelsLike} °C",
+                        fontSize = 20.sp,
+                        color = Color.White
+
+
+                    )
+                }
+                Text(
+                    "Humidity: ${weatherData?.main?.humidity}%",
+                    fontSize = 20.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(12.dp)
+                )
+                Text("Wind Speed: ${weatherData?.main?.windSpeed} m/s",
+                    fontSize = 20.sp,
+                    color = Color.White,
+                    modifier = Modifier.padding(12.dp)
+
+                )
+
             }
         }
         Row (

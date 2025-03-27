@@ -1,4 +1,4 @@
-package com.example.internapp.iu
+package com.example.internapp.ui
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape

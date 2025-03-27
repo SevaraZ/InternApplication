@@ -4,10 +4,10 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.internapp.iu.MainMenu
-import com.example.internapp.iu.NewsScreen
-import com.example.internapp.iu.WeatherScreen
-import com.example.internapp.iu.StopwatchScreen
+import com.example.internapp.ui.MainMenu
+import com.example.internapp.ui.NewsScreen
+import com.example.internapp.ui.WeatherScreen
+import com.example.internapp.ui.StopwatchScreen
 
 @Composable
 fun NavGraph(navController: NavHostController) {

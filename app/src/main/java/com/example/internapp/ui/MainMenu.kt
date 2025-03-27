@@ -1,4 +1,4 @@
-package com.example.internapp.iu
+package com.example.internapp.ui
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
