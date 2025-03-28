@@ -1,6 +1,7 @@
 package com.example.internapp.ui
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -26,62 +27,55 @@ import com.example.internapp.R
 
 @Composable
 fun NewsScreen(){
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp),
-        verticalAlignment = Alignment.CenterVertically
+    Column(
+        modifier = Modifier.fillMaxWidth()
     ) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Icon(
+                imageVector = Icons.Filled.Menu,
+                contentDescription = null,
+                Modifier.size(35.dp)
+            )
 
-        Icon(
-            imageVector = Icons.Filled.Menu,
-            contentDescription = null,
-            Modifier.size(35.dp)
+            Spacer(modifier = Modifier.width(100.dp))
 
+            Text(
+                text = "News",
+                fontSize = 35.sp,
+                color = Color.Black
+            )
+        }
 
-        )
+        Card(
+            modifier = Modifier.fillMaxWidth()
+                .padding(5.dp),
+            shape = RoundedCornerShape(16.dp),
+            elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+            colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
+        ) {
+            Row(
+                modifier = Modifier.fillMaxWidth()
+                    .padding(30.dp)
+            ) {
+                Text("Daily", fontSize = 25.sp, color = Color.White)
 
-        Spacer(modifier = Modifier.width(100.dp))
+                Spacer(modifier = Modifier.width(20.dp))
 
+                Text("Health", fontSize = 25.sp, color = Color.White)
 
-        Text(
-            text = "News",
-            fontSize = 35.sp,
-            color = Color.Black
-        )
-    }
+                Spacer(modifier = Modifier.width(20.dp))
 
-    Card(
-        modifier = Modifier
-            .padding(55.dp),
-        shape = RoundedCornerShape(8.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
-    ) {
-        Row (
-            modifier = Modifier.padding(30.dp)
-                .fillMaxWidth(),
+                Text("Sport", fontSize = 25.sp, color = Color.White)
 
+                Spacer(modifier = Modifier.width(20.dp))
 
-
-        ){
-            Text("Daily",
-                fontSize = 25.sp,
-                color = Color.White
-                )
-
-            Spacer(modifier = Modifier.width(20.dp))
-
-            Text("Health",
-                fontSize = 25.sp,
-                color = Color.White)
-
-            Spacer(modifier = Modifier.width(20.dp))
-
-            Text("Sport",
-                fontSize = 25.sp,
-                color = Color.White)
-
+                Text("Health", fontSize = 25.sp, color = Color.White)
+            }
         }
     }
 }
