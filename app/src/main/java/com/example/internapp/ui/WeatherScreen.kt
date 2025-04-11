@@ -69,7 +69,7 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
 
                     horizontalArrangement = Arrangement.SpaceEvenly
                 ){
-                    Text("Feels like: ${weatherData?.main?.feelsLike} °C",
+                    Text("Feels like: ${weatherData?.main?.feels_Like} °C",
                         fontSize = 20.sp,
                         color = Color.White
 
@@ -82,7 +82,7 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
                     color = Color.White,
                     modifier = Modifier.padding(12.dp)
                 )
-                Text("Wind Speed: ${weatherData?.main?.windSpeed} m/s",
+                Text("Pressure: ${weatherData?.main?.pressure} ",
                     fontSize = 20.sp,
                     color = Color.White,
                     modifier = Modifier.padding(12.dp)

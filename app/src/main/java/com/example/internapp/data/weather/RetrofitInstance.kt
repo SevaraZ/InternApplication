@@ -1,4 +1,4 @@
-package com.example.internapp.data
+package com.example.internapp.data.weather
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

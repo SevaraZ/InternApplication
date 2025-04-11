@@ -1,4 +1,4 @@
-package com.example.internapp.data
+package com.example.internapp.data.weather
 
 import retrofit2.http.GET
 import retrofit2.http.Query

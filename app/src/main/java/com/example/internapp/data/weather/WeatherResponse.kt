@@ -1,15 +1,15 @@
-package com.example.internapp.data
+package com.example.internapp.data.weather
 
 data class WeatherResponse(
     val main: Main,
-    val feelsLike: Main,
+    val feels_like: Main,
     val humidity: Main,
-    val windSpeed: Main
+    val pressure: Main
 )
 
 data class Main(
     val temp: Double,
-    val feelsLike: Double,
+    val feels_Like: Double,
     val humidity: Double,
-    val windSpeed:Double
+    val pressure:Int
 )
