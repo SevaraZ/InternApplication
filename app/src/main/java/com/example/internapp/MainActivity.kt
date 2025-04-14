@@ -7,8 +7,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.navigation.compose.rememberNavController
 import com.intern.presentation.navigation.NavGraph
 import com.example.internapp.ui.theme.InternAppTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,4 +25,5 @@ class MainActivity : ComponentActivity() {
 
         //val a = Data().add()
     }
+
 }

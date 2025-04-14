@@ -1,4 +1,4 @@
-package com.intern.data.models.weather
+package com.example.core.models.weather
 
 data class Main(
     val temp: Double,

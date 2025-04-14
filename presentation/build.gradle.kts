@@ -38,6 +38,11 @@ android {
 
 dependencies {
 
+    implementation(project(":data"))
+    implementation(project(":domain"))
+    implementation(project(":core"))
+
+
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
@@ -45,11 +50,13 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.navigation.compose)
-    implementation(project(":data"))
     implementation(libs.coil.compose)
+    implementation(libs.hilt.android)
+    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
+
 }

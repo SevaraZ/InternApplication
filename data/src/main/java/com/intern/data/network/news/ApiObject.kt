@@ -3,6 +3,7 @@ package com.example.internapp.network.news
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
+
 object ApiObject {
     private const val BASE_URL: String = "https://newsapi.org/v2/"
 

@@ -21,7 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.intern.data.models.weather.WeatherResponse
+import com.example.core.models.weather.WeatherResponse
 import com.intern.presentation.weather.viewmodels.WeatherViewModel
 
 
@@ -44,7 +44,7 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
 }
 
 @Composable
-fun WeatherCard(weatherData: WeatherResponse?, isRunning: Boolean) {
+fun WeatherCard(weatherData: com.example.core.models.weather.WeatherResponse?, isRunning: Boolean) {
     Card(
         modifier = Modifier
             .padding(16.dp)
@@ -75,7 +75,7 @@ fun LoadingIndicator() {
 }
 
 @Composable
-fun WeatherDetails(weatherData: WeatherResponse?) {
+fun WeatherDetails(weatherData: com.example.core.models.weather.WeatherResponse?) {
     Text(
         "Temperature: ${weatherData?.main?.temp} °C",
         fontSize = 24.sp,

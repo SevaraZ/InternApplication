@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("kapt")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -70,10 +72,17 @@ dependencies {
 
     implementation (libs.accompanist.swiperefresh)
 
+
     implementation(project(":data"))
     implementation(project(":domain"))
     implementation(project(":presentation"))
 
 
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+   /* kapt(libs.hilt.android.compiler)
+    kapt {
+        correctErrorTypes = true
+    }*/
 
 }
