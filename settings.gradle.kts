@@ -21,3 +21,6 @@ dependencyResolutionManagement {
 
 rootProject.name = "InternApp"
 include(":app")
+include(":domain")
+include(":data")
+include(":presentation")
