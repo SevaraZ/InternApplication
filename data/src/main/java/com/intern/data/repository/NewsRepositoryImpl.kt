@@ -1,22 +1,35 @@
 package com.intern.data.repository
 
+import com.example.core.local.news.FavoriteNewsDao
+import com.example.core.local.news.FavoriteNewsEntity
 import com.example.core.models.news.NewsResponse
-import com.example.internapp.network.news.ApiObject
-import repository.NewsRepository
+import com.intern.data.network.news.ApiObject
+import com.example.domian.repository.NewsRepository
 import javax.inject.Inject
 
-class NewsRepositoryImpl @Inject constructor() : NewsRepository {
+class NewsRepositoryImpl @Inject constructor(
+    private val dao: FavoriteNewsDao
+) : NewsRepository {
 
     override suspend fun getTopHeadlines(
-        category: String,
-        apiKey: String,
-        country: String
+        category: String
     ): NewsResponse {
         return ApiObject.api.getTopHeadlines(
-            category = category,
-            apiKey = apiKey,
-            country = country
+            category = category
         )
+    }
+
+    override suspend fun getAllFavorites(): List<FavoriteNewsEntity> {
+        return dao.getAllFavorites()
+
+    }
+
+    override suspend fun insertFavorite(news: FavoriteNewsEntity) {
+        dao.insert(news)
+    }
+
+    override suspend fun deleteFavorite(news: FavoriteNewsEntity) {
+        dao.delete(news)
     }
 
 }

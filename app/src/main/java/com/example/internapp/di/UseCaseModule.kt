@@ -1,11 +1,11 @@
 package com.example.internapp.di
 
-import com.intern.domain.usecase.GetAllNewsUseCase
+import com.example.domian.usecase.GetAllNewsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
-import repository.NewsRepository
+import com.example.domian.repository.NewsRepository
 
 @Module
 @InstallIn(SingletonComponent::class)

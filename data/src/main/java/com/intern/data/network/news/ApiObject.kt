@@ -1,4 +1,4 @@
-package com.example.internapp.network.news
+package com.intern.data.network.news
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

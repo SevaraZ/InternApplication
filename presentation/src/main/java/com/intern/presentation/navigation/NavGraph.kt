@@ -15,6 +15,6 @@ fun NavGraph(navController: NavHostController) {
         composable("main_menu") { MainMenu(navController) }
         composable("weather_screen") { WeatherScreen() }
         composable("stopwatch_screen") { StopwatchScreen() }
-        composable("news_screen") {}
+        composable("news_screen") { NewsScreen()}
     }
 }

@@ -2,6 +2,9 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("org.jetbrains.kotlin.plugin.compose") version "2.0.0"
+    kotlin("kapt")
+    alias(libs.plugins.hilt)
+    kotlin("plugin.serialization") version "2.0.21"
 }
 
 android {
@@ -50,8 +53,11 @@ dependencies {
     implementation(libs.androidx.material3.android)
     implementation(libs.androidx.navigation.runtime.android)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.hilt.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.hilt.android)
+    //implementation(libs.kotlinx.serialization.json)
+    kapt(libs.hilt.android.compiler)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
 
     testImplementation(libs.junit)

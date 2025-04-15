@@ -3,7 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     kotlin("kapt")
-    id("com.google.dagger.hilt.android")
+    alias(libs.plugins.hilt)
 }
 
 android {
@@ -61,16 +61,16 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
-    implementation (libs.retrofit)
-    implementation (libs.converter.gson)
-    implementation (libs.kotlinx.coroutines.android)
-    implementation (libs.androidx.lifecycle.viewmodel.ktx)
-    implementation (libs.volley)
-    implementation (libs.ui)
-    implementation (libs.androidx.material)
-    implementation (libs.ui.tooling.preview)
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.volley)
+    implementation(libs.ui)
+    implementation(libs.androidx.material)
+    implementation(libs.ui.tooling.preview)
 
-    implementation (libs.accompanist.swiperefresh)
+    implementation(libs.accompanist.swiperefresh)
 
 
     implementation(project(":data"))
@@ -80,9 +80,9 @@ dependencies {
 
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
-   /* kapt(libs.hilt.android.compiler)
-    kapt {
-        correctErrorTypes = true
-    }*/
+    /* kapt(libs.hilt.android.compiler)
+     kapt {
+         correctErrorTypes = true
+     }*/
 
 }

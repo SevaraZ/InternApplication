@@ -28,7 +28,6 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -40,21 +39,17 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
-import com.intern.data.local.news.FavoriteNewsEntity
+import com.example.core.local.news.FavoriteNewsEntity
 import com.intern.presentation.news.viewmodels.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsScreen(viewModel: NewsViewModel) {
+fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
     val news by viewModel.news.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     var selectedTab by remember { mutableIntStateOf(0) }
-
-    LaunchedEffect(Unit) {
-        viewModel.loadNews()
-        viewModel.loadFavorites()
-    }
 
     Scaffold(
         topBar = {
@@ -113,7 +108,7 @@ fun NewsList(
                     }
                 }
             )
-            Divider(color = Color.LightGray, thickness = 0.5.dp)
+            //Divider(color = Color.LightGray, thickness = 0.5.dp)
         }
     }
 }
@@ -192,7 +187,7 @@ fun FavoritesList(viewModel: NewsViewModel, favorites: List<FavoriteNewsEntity>)
                 favorite = favorite,
                 onRemove = { viewModel.removeFromFavorites(favorite) }
             )
-            Divider(color = Color.LightGray, thickness = 0.5.dp)
+            //Divider(color = Color.LightGray, thickness = 0.5.dp)
         }
     }
 }

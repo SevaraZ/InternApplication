@@ -1,4 +1,4 @@
-package com.intern.data.local.news
+package com.example.core.local.news
 
 import androidx.room.Dao
 import androidx.room.Delete
