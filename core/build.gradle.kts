@@ -15,5 +15,6 @@ kotlin {
 }
 dependencies {
     implementation(libs.androidx.room.common.jvm)
+
 //    kapt(libs.hilt.android.compiler)
 }

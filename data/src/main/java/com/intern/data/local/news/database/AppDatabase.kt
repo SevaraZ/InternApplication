@@ -1,4 +1,4 @@
-package com.intern.data.di
+package com.intern.data.local.news.database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -3,6 +3,7 @@ package com.intern.data.di
 import android.content.Context
 import androidx.room.Room
 import com.example.core.local.news.FavoriteNewsDao
+import com.intern.data.local.news.database.AppDatabase
 import com.intern.data.network.news.NewsApi
 import dagger.Module
 import dagger.Provides
