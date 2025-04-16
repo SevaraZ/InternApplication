@@ -23,7 +23,7 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        //val a = Data().add()
+
     }
 
 }

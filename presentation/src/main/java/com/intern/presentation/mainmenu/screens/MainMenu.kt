@@ -2,6 +2,7 @@ package com.intern.presentation.mainmenu.screens
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,7 +16,11 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Shapes
 import androidx.compose.material3.Text
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -25,14 +30,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 
 
+
+
 @Composable
 fun MainMenu(navController: NavHostController) {
+    val uiTheme  = MaterialTheme.colorScheme
+
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(Color(0xFF121212)),
+            .background(MaterialTheme.colorScheme.secondary),
         contentAlignment = Alignment.Center
     ) {
+
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -63,7 +73,7 @@ fun MenuItem(title: String, onClick: () -> Unit) {
             .clickable(onClick = onClick),
         shape = RoundedCornerShape(16.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
     ) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
@@ -77,11 +87,36 @@ fun MenuItem(title: String, onClick: () -> Unit) {
             Text(
                 text = title,
                 fontSize = 20.sp,
-                color = Color.White
+                color = MaterialTheme.colorScheme.tertiary
             )
         }
     }
 }
+
+@Composable
+fun ThemeSwitcher(
+    isDarkTheme: Boolean,
+    onToggle: (Boolean) -> Unit
+) {
+    val colors = MaterialTheme.colorScheme
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 8.dp)
+    ) {
+        Text(
+            text = if (isDarkTheme) "Dark Theme" else "Light Theme",
+            color = colors.onBackground,
+            modifier = Modifier.weight(1f)
+        )
+        androidx.compose.material3.Switch(
+            checked = isDarkTheme,
+            onCheckedChange = { onToggle(it) }
+        )
+    }
+}
+
 
 
 

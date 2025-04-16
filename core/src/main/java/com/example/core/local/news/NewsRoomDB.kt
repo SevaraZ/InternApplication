@@ -9,4 +9,5 @@ data class FavoriteNewsEntity(
     @PrimaryKey val url: String,
     val title: String,
     val description: String?
+
 )

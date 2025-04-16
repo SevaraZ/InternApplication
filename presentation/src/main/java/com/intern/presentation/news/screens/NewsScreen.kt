@@ -15,6 +15,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
+import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -22,6 +23,7 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Tab
 import androidx.compose.material3.TabRow
@@ -54,9 +56,10 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("News", color = Color.Black) },
+                title = { Text("News",
+                    color = MaterialTheme.colorScheme.primary) },
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = Color.White
+                    containerColor = MaterialTheme.colorScheme.secondary
                 )
             )
         }
@@ -64,8 +67,8 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
         Column(modifier = Modifier.padding(padding)) {
             TabRow(
                 selectedTabIndex = selectedTab,
-                containerColor = Color.White,
-                contentColor = Color.Black
+                containerColor = MaterialTheme.colorScheme.secondary,
+                contentColor = MaterialTheme.colorScheme.primary
             ) {
                 Tab(
                     selected = selectedTab == 0,
@@ -123,7 +126,7 @@ fun NewsItem(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             article.urlToImage?.let { url ->
@@ -144,7 +147,7 @@ fun NewsItem(
                 text = article.title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.primary
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -153,7 +156,7 @@ fun NewsItem(
                 Text(
                     text = it,
                     fontSize = 14.sp,
-                    color = Color.DarkGray
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
 
@@ -163,7 +166,7 @@ fun NewsItem(
             ) {
                 Text(
                     text = article.publishedAt.take(10),
-                    color = Color.Gray,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 12.sp
                 )
 
@@ -171,7 +174,7 @@ fun NewsItem(
                     Icon(
                         imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                         contentDescription = "Add to favorites",
-                        tint = if (isFavorite) Color.Black else Color.Gray
+                        tint = if (isFavorite) Color.Red else Color.Gray
                     )
                 }
             }
@@ -198,14 +201,14 @@ fun FavoriteItem(favorite: FavoriteNewsEntity, onRemove: () -> Unit) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        colors = CardDefaults.cardColors(MaterialTheme.colorScheme.secondary)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             Text(
                 text = favorite.title,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.Bold,
-                color = Color.Black
+                color = MaterialTheme.colorScheme.primary
             )
 
             Spacer(modifier = Modifier.height(4.dp))
@@ -214,7 +217,7 @@ fun FavoriteItem(favorite: FavoriteNewsEntity, onRemove: () -> Unit) {
                 Text(
                     text = it,
                     fontSize = 14.sp,
-                    color = Color.DarkGray
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
 
@@ -226,7 +229,7 @@ fun FavoriteItem(favorite: FavoriteNewsEntity, onRemove: () -> Unit) {
                     Icon(
                         imageVector = Icons.Default.Delete,
                         contentDescription = "Remove",
-                        tint = Color.Black
+                        tint = Color.Gray
                     )
                 }
             }

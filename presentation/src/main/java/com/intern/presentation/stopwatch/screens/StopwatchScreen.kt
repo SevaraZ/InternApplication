@@ -1,6 +1,7 @@
 package com.intern.presentation.stopwatch.screens
 
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -12,6 +13,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -29,7 +31,8 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
     Column(
         modifier = Modifier
             .fillMaxSize()
-            .padding(16.dp),
+            .padding(16.dp)
+            .background(MaterialTheme.colorScheme.secondary),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -40,12 +43,12 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
                 .fillMaxWidth(),
             shape = RoundedCornerShape(16.dp),
             elevation = CardDefaults.cardElevation(defaultElevation = 8.dp),
-            colors = CardDefaults.cardColors(containerColor = Color(0xFF1E1E1E))
+            colors = CardDefaults.cardColors(MaterialTheme.colorScheme.primary)
         ) {
             Text(
                 text = viewModel.getFormattedTime(),
                 fontSize = 48.sp,
-                color = Color.White,
+                color = MaterialTheme.colorScheme.tertiary,
                 fontWeight = FontWeight.Bold,
                 modifier = Modifier
                     .padding(32.dp)
@@ -61,7 +64,7 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
             Button(
                 onClick = { viewModel.startStop() },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = if (viewModel.isRunning) Color.Red else Color.Gray
+                    containerColor = if (viewModel.isRunning) Color.Red else MaterialTheme.colorScheme.primary
 
                 )
             ) {
@@ -71,10 +74,12 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
 
             Button(
                 onClick = { viewModel.reset() },
-                colors = ButtonDefaults.buttonColors(containerColor = Color.Gray)
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
             ) {
                 Text(
-                    "Reset"
+                    "Reset",
+                    color = MaterialTheme.colorScheme.tertiary
+
                 )
             }
         }
