@@ -22,46 +22,59 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-
-
+import com.example.internapp.ui.theme.InternAppTheme
+import com.intern.presentation.mainmenu.viewModel.MenuViewModel
+import kotlinx.serialization.builtins.MapEntrySerializer
 
 
 @Composable
-fun MainMenu(navController: NavHostController) {
-    val uiTheme  = MaterialTheme.colorScheme
+fun MainMenu(navController: NavHostController, viewModel: MenuViewModel = hiltViewModel()) {
 
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(MaterialTheme.colorScheme.secondary),
-        contentAlignment = Alignment.Center
-    ) {
+    val isDarkTheme = viewModel.themeModeState.collectAsState(false)
 
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(16.dp),
-            modifier = Modifier.padding(24.dp)
+    InternAppTheme(darkTheme = isDarkTheme.value) {
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.secondary),
+            contentAlignment = Alignment.Center
         ) {
-            MenuItem(
-                title = "Weather",
-                onClick = { navController.navigate("weather_screen") }
-            )
-            MenuItem(
-                title ="Stopwatch",
-                onClick = { navController.navigate("stopwatch_screen") }
-            )
-            MenuItem(
-                title = "News",
-                onClick = {navController.navigate("news_screen")}
-            )
+
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(16.dp),
+                modifier = Modifier.padding(24.dp)
+            ) {
+                ThemeSwitcher( isDarkTheme = isDarkTheme.value) {
+                    viewModel.saveSettings(it)
+                }
+                MenuItem(
+                    title = "Weather",
+                    onClick = { navController.navigate("weather_screen") }
+                )
+                MenuItem(
+                    title ="Stopwatch",
+                    onClick = { navController.navigate("stopwatch_screen") }
+                )
+                MenuItem(
+                    title = "News",
+                    onClick = {navController.navigate("news_screen")}
+                )
+            }
         }
     }
+    val uiTheme  = MaterialTheme.colorScheme
+
+
 }
 
 @Composable
