@@ -1,10 +1,11 @@
 package com.intern.data.repository
 
-import com.example.core.local.news.FavoriteNewsDao
-import com.example.core.local.news.FavoriteNewsEntity
-import com.example.core.models.news.NewsResponse
+import com.example.mcore.local.news.FavoriteNewsDao
+import com.example.mcore.local.news.FavoriteNewsEntity
+import com.example.mcore.models.news.NewsResponse
 import com.intern.data.network.news.ApiObject
 import com.example.domian.repository.NewsRepository
+import com.example.mcore.models.news.Article
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
@@ -19,10 +20,11 @@ class NewsRepositoryImpl @Inject constructor(
         )
     }
 
-    override suspend fun getAllFavorites(): List<FavoriteNewsEntity> {
+    override suspend fun getAllFavorites(): List<com.example.mcore.local.news.FavoriteNewsEntity> {
         return dao.getAllFavorites()
 
     }
+
 
     override suspend fun insertFavorite(news: FavoriteNewsEntity) {
         dao.insert(news)

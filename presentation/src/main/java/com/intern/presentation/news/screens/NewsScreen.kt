@@ -15,11 +15,9 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
-import androidx.compose.material.icons.materialIcon
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
-import androidx.compose.material3.Divider
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -43,7 +41,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
-import com.example.core.local.news.FavoriteNewsEntity
+import com.example.mcore.local.news.FavoriteNewsEntity
 import com.intern.presentation.news.viewmodels.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -93,8 +91,8 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
 @Composable
 fun NewsList(
     viewModel: NewsViewModel,
-    news: List<com.example.core.models.news.Article>,
-    favorites: List<FavoriteNewsEntity>
+    news: List<com.example.mcore.models.news.Article>,
+    favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(news) { article ->
@@ -118,7 +116,7 @@ fun NewsList(
 
 @Composable
 fun NewsItem(
-    article: com.example.core.models.news.Article,
+    article: com.example.mcore.models.news.Article,
     isFavorite: Boolean,
     onFavoriteClick: () -> Unit
 ) {
@@ -183,7 +181,7 @@ fun NewsItem(
 }
 
 @Composable
-fun FavoritesList(viewModel: NewsViewModel, favorites: List<FavoriteNewsEntity>) {
+fun FavoritesList(viewModel: NewsViewModel, favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(favorites) { favorite ->
             FavoriteItem(
@@ -196,7 +194,7 @@ fun FavoritesList(viewModel: NewsViewModel, favorites: List<FavoriteNewsEntity>)
 }
 
 @Composable
-fun FavoriteItem(favorite: FavoriteNewsEntity, onRemove: () -> Unit) {
+fun FavoriteItem(favorite: com.example.mcore.local.news.FavoriteNewsEntity, onRemove: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

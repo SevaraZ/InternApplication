@@ -1,4 +1,4 @@
-package com.example.core.local.news
+package com.example.mcore.local.news
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

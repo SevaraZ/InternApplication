@@ -56,13 +56,15 @@ dependencies {
     implementation(libs.hilt.navigation.compose)
     implementation(libs.coil.compose)
     implementation(libs.hilt.android)
-    //implementation(libs.kotlinx.serialization.json)
     kapt(libs.hilt.android.compiler)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
+    implementation("com.google.code.gson:gson:2.10.1")
+
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
 
 
 }

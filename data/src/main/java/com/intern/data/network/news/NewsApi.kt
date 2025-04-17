@@ -1,6 +1,8 @@
 package com.intern.data.network.news
 
-import com.example.core.models.news.NewsResponse
+import android.icu.text.CaseMap.Title
+import com.example.mcore.models.news.Article
+import com.example.mcore.models.news.NewsResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

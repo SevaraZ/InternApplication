@@ -14,4 +14,5 @@ object ApiObject {
             .build()
             .create(NewsApi::class.java)
     }
+
 }

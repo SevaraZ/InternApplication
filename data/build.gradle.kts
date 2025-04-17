@@ -53,10 +53,10 @@ dependencies {
     implementation(libs.kotlinx.coroutines.android)
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
-
-
-
     implementation(project(":core"))
+
+
+
     implementation(project(":domain"))
 
     implementation(libs.hilt.android)

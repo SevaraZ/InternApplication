@@ -1,3 +1,3 @@
-package com.example.core.models.news
+package com.example.mcore.models.news
 
 data class NewsResponse(val status: String, val articles: List<Article>)

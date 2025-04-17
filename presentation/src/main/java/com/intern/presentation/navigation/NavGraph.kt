@@ -3,6 +3,7 @@ package com.intern.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -23,7 +24,8 @@ fun InternAppScreen(viewModel: MenuViewModel = hiltViewModel()) {
             composable("main_menu") { MainMenu(navController) }
             composable("weather_screen") { WeatherScreen() }
             composable("stopwatch_screen") { StopwatchScreen() }
-            composable("news_screen") { NewsScreen() }
+            composable("news_screen") { NewsScreen()}
+
         }
     }
 }

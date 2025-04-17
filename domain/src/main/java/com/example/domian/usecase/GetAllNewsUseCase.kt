@@ -1,6 +1,6 @@
 package com.example.domian.usecase
 
-import com.example.core.models.news.NewsResponse
+import com.example.mcore.models.news.NewsResponse
 import com.example.domian.repository.NewsRepository
 import javax.inject.Inject
 

@@ -1,4 +1,4 @@
-package com.example.core.models.weather
+package com.example.mcore.models.weather
 
 data class WeatherData(
     val temp: Double,
