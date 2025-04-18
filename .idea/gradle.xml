@@ -9,12 +9,12 @@
         <option name="gradleJvm" value="#GRADLE_LOCAL_JAVA_HOME" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/app" />
-            <option value="$PROJECT_DIR$/core" />
-            <option value="$PROJECT_DIR$/data" />
-            <option value="$PROJECT_DIR$/domain" />
-            <option value="$PROJECT_DIR$/presentation" />
+            <option value="$PROJECT_DIR$/../Йоу" />
+            <option value="$PROJECT_DIR$/../Йоу/app" />
+            <option value="$PROJECT_DIR$/../Йоу/core" />
+            <option value="$PROJECT_DIR$/../Йоу/data" />
+            <option value="$PROJECT_DIR$/../Йоу/domain" />
+            <option value="$PROJECT_DIR$/../Йоу/presentation" />
           </set>
         </option>
         <option name="resolveExternalAnnotations" value="false" />

@@ -1,6 +1,9 @@
 package com.intern.presentation.news.screens
 
+import android.net.Uri
+import android.widget.Toast
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -36,17 +39,22 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
-import com.example.mcore.local.news.FavoriteNewsEntity
+import com.example.mcore.models.news.Article
 import com.intern.presentation.news.viewmodels.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
+fun NewsScreen(
+    viewModel: NewsViewModel = hiltViewModel(),
+    navController: NavHostController
+) {
     val news by viewModel.news.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     var selectedTab by remember { mutableIntStateOf(0) }
@@ -54,8 +62,12 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text("News",
-                    color = MaterialTheme.colorScheme.primary) },
+                title = {
+                    Text(
+                        "News",
+                        color = MaterialTheme.colorScheme.primary
+                    )
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.secondary
                 )
@@ -80,8 +92,23 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
                 )
             }
 
+            val context = LocalContext.current
+
             when (selectedTab) {
-                0 -> NewsList(viewModel, news, favorites)
+                0 -> NewsList(
+                    viewModel = viewModel,
+                    news = news,
+                    favorites = favorites,
+                    navController = navController,
+                    onclickItem = { article ->
+                        navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
+                        navController.navigate("news_detail")
+
+
+
+                    }
+                )
+
                 1 -> FavoritesList(viewModel, favorites)
             }
         }
@@ -92,7 +119,9 @@ fun NewsScreen(viewModel: NewsViewModel = hiltViewModel()) {
 fun NewsList(
     viewModel: NewsViewModel,
     news: List<com.example.mcore.models.news.Article>,
-    favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>
+    favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>,
+    navController: NavHostController,
+    onclickItem: (Article) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(news) { article ->
@@ -107,9 +136,9 @@ fun NewsList(
                     } else {
                         viewModel.addToFavorites(article)
                     }
-                }
+                },
+                onclickItem = { onclickItem(article) }
             )
-            //Divider(color = Color.LightGray, thickness = 0.5.dp)
         }
     }
 }
@@ -118,11 +147,15 @@ fun NewsList(
 fun NewsItem(
     article: com.example.mcore.models.news.Article,
     isFavorite: Boolean,
-    onFavoriteClick: () -> Unit
+    onFavoriteClick: () -> Unit,
+    onclickItem: (Article) -> Unit
 ) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
+            .clickable {
+                onclickItem(article)
+            }
             .padding(8.dp),
         colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondary)
     ) {
@@ -181,7 +214,10 @@ fun NewsItem(
 }
 
 @Composable
-fun FavoritesList(viewModel: NewsViewModel, favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>) {
+fun FavoritesList(
+    viewModel: NewsViewModel,
+    favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>
+) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(favorites) { favorite ->
             FavoriteItem(

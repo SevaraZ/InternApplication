@@ -1,15 +1,17 @@
 package com.intern.presentation.navigation
 
+import android.net.Uri
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.example.internapp.ui.theme.InternAppTheme
 import com.intern.presentation.mainmenu.screens.MainMenu
 import com.intern.presentation.mainmenu.viewModel.MenuViewModel
+import com.intern.presentation.news.screens.NewsDetailScreen
 import com.intern.presentation.news.screens.NewsScreen
 import com.intern.presentation.stopwatch.screens.StopwatchScreen
 import com.intern.presentation.weather.screens.WeatherScreen
@@ -24,8 +26,12 @@ fun InternAppScreen(viewModel: MenuViewModel = hiltViewModel()) {
             composable("main_menu") { MainMenu(navController) }
             composable("weather_screen") { WeatherScreen() }
             composable("stopwatch_screen") { StopwatchScreen() }
-            composable("news_screen") { NewsScreen()}
+            composable("news_screen") { NewsScreen(navController = navController) }
+
+            composable("news_detail") {NewsDetailScreen(navController = navController)}
 
         }
+
+
     }
 }
