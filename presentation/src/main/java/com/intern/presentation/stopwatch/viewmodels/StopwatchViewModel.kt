@@ -14,7 +14,11 @@ class StopwatchViewModel : ViewModel() {
 
     var time by mutableLongStateOf(0L)
         private set
+
     var isRunning by mutableStateOf(false)
+        private set
+
+    var laps by mutableStateOf(listOf<String>())
         private set
 
     fun startStop() {
@@ -34,6 +38,12 @@ class StopwatchViewModel : ViewModel() {
     fun reset() {
         time = 0
         isRunning = false
+        laps = emptyList()
+    }
+
+    fun recordLap() {
+        val currentLap = getFormattedTime()
+        laps = listOf(currentLap) + laps
     }
 
     fun getFormattedTime(): String {

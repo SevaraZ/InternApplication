@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
@@ -66,33 +67,58 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
 
 
         Row(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 16.dp),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Button(
                 onClick = { viewModel.startStop() },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = if (viewModel.isRunning) Color.Red else MaterialTheme.colorScheme.primary
-
                 )
             ) {
-                Text(
-                    if (viewModel.isRunning) "Stop"
-                    else "Start"
-                )
+                Text(if (viewModel.isRunning) "Stop" else "Start")
+            }
+
+            Button(
+                onClick = { viewModel.recordLap() },
+                enabled = viewModel.isRunning,
+                colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
+            ) {
+                Text("Lap", color = MaterialTheme.colorScheme.tertiary)
             }
 
             Button(
                 onClick = { viewModel.reset() },
                 colors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
             ) {
-                Text(
-                    "Reset",
-                    color = MaterialTheme.colorScheme.tertiary
+                Text("Reset", color = MaterialTheme.colorScheme.tertiary)
+            }
+        }
 
+        Text(
+            text = "Laps:",
+            fontSize = 20.sp,
+            fontWeight = FontWeight.SemiBold,
+            modifier = Modifier.padding(top = 16.dp),
+            color = MaterialTheme.colorScheme.primary
+        )
+
+        LazyColumn(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp)
+        ) {
+            items(viewModel.laps.size) { index ->
+                Text(
+                    text = "Lap ${viewModel.laps.size - index}: ${viewModel.laps[index]}",
+                    modifier = Modifier.padding(4.dp),
+                    color = MaterialTheme.colorScheme.primary
                 )
             }
         }
+
     }
 }
 

@@ -40,7 +40,7 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
     ) {
 
         Text(
-            text = "Current Weather",
+            text = "Current Weather ⛅\uFE0F",
             fontSize = 28.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.primary,
@@ -89,7 +89,7 @@ fun LoadingIndicator() {
 @Composable
 fun WeatherDetails(weatherData: com.example.mcore.models.weather.WeatherResponse?) {
     Text(
-        "Temperature: ${weatherData?.main?.temp} °C",
+        "\uD83C\uDF21\uFE0FTemperature: ${weatherData?.main?.temp} °C",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.tertiary,
         fontWeight = FontWeight.Bold,
