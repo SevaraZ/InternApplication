@@ -59,6 +59,7 @@ dependencies {
     kapt(libs.hilt.android.compiler)
     implementation (libs.androidx.lifecycle.viewmodel.ktx)
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.34.0")
 
 
     testImplementation(libs.junit)

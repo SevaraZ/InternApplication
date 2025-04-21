@@ -48,7 +48,10 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import coil.compose.rememberAsyncImagePainter
+import com.example.mcore.local.news.FavoriteNewsEntity
 import com.example.mcore.models.news.Article
+import com.google.accompanist.swiperefresh.SwipeRefresh
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.intern.presentation.news.viewmodels.NewsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -125,13 +128,16 @@ fun NewsScreen(
 @Composable
 fun NewsList(
     viewModel: NewsViewModel,
-    news: List<com.example.mcore.models.news.Article>,
-    favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>,
+    news: List<Article>,
+    favorites: List<FavoriteNewsEntity>,
     navController: NavHostController,
     onclickItem: (Article) -> Unit
 ) {
     val categories = listOf("technology", "sports", "health", "business", "science", "entertainment")
     var selectedCategory by remember { mutableStateOf("general") }
+
+    val isRefreshing by viewModel.isRefreshing.collectAsState()
+
     LazyRow(
         modifier = Modifier.padding(8.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
@@ -148,39 +154,48 @@ fun NewsList(
                     }
                     .padding(horizontal = 12.dp, vertical = 8.dp)
                     .background(
-                        color = if (isSelected) Color.Gray  else Color.Transparent,
+                        color = if (isSelected) Color.Gray else Color.Transparent,
                         shape = MaterialTheme.shapes.medium
                     )
             )
         }
     }
+
     LaunchedEffect(Unit) {
         viewModel.loadNews(selectedCategory)
     }
 
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(news) { article ->
-            NewsItem(
-                article = article,
-                isFavorite = favorites.any { it.url == article.url },
-                onFavoriteClick = {
-                    if (favorites.any { it.url == article.url }) {
-                        favorites.firstOrNull { it.url == article.url }?.let {
-                            viewModel.removeFromFavorites(it)
+    SwipeRefresh(
+        state = rememberSwipeRefreshState(isRefreshing),
+        onRefresh = { viewModel.refreshNews() }
+    ) {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(news) { article ->
+                NewsItem(
+                    article = article,
+                    isFavorite = favorites.any { it.url == article.url },
+                    onFavoriteClick = {
+                        if (favorites.any { it.url == article.url }) {
+                            favorites.firstOrNull { it.url == article.url }?.let {
+                                viewModel.removeFromFavorites(
+                                    fav = it
+                                )
+                            }
+                        } else {
+                            viewModel.addToFavorites(article)
                         }
-                    } else {
-                        viewModel.addToFavorites(article)
-                    }
-                },
-                onclickItem = { onclickItem(article) }
-            )
+                    },
+                    onclickItem = { onclickItem(article) }
+                )
+            }
         }
     }
 }
 
+
 @Composable
 fun NewsItem(
-    article: com.example.mcore.models.news.Article,
+    article: Article,
     isFavorite: Boolean,
     onFavoriteClick: () -> Unit,
     onclickItem: (Article) -> Unit
@@ -251,7 +266,7 @@ fun NewsItem(
 @Composable
 fun FavoritesList(
     viewModel: NewsViewModel,
-    favorites: List<com.example.mcore.local.news.FavoriteNewsEntity>
+    favorites: List<FavoriteNewsEntity>
 ) {
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(favorites) { favorite ->
@@ -264,7 +279,7 @@ fun FavoritesList(
 }
 
 @Composable
-fun FavoriteItem(favorite: com.example.mcore.local.news.FavoriteNewsEntity, onRemove: () -> Unit) {
+fun FavoriteItem(favorite: FavoriteNewsEntity, onRemove: () -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
