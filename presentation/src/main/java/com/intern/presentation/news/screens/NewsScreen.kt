@@ -1,6 +1,7 @@
 package com.intern.presentation.news.screens
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -11,6 +12,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
@@ -29,9 +31,11 @@ import androidx.compose.material3.TabRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -53,9 +57,13 @@ fun NewsScreen(
     viewModel: NewsViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
+    val categories = listOf("technology", "sports", "health", "business", "science", "entertainment")
+    var selectedCategory by remember { mutableStateOf("general") }
     val news by viewModel.news.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
-    var selectedTab by remember { mutableIntStateOf(0) }
+    var selectedTab by remember { mutableIntStateOf(0)
+
+    }
 
     Scaffold(
         topBar = {
@@ -71,7 +79,8 @@ fun NewsScreen(
                 )
             )
         }
-    ) { padding ->
+    ) {
+        padding ->
         Column(modifier = Modifier.padding(padding)) {
             TabRow(
                 selectedTabIndex = selectedTab,
@@ -88,6 +97,32 @@ fun NewsScreen(
                     onClick = { selectedTab = 1 },
                     text = { Text("Favorites") }
                 )
+            }
+
+            LazyRow(
+                modifier = Modifier.padding(8.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(categories) { category ->
+                    val isSelected = category == selectedCategory
+                    Text(
+                        text = category.replaceFirstChar { it.uppercase() },
+                        color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .clickable {
+                                selectedCategory = category
+                                viewModel.loadNews(category)
+                            }
+                            .padding(horizontal = 12.dp, vertical = 8.dp)
+                            .background(
+                                color = if (isSelected) Color.Gray  else Color.Transparent,
+                                shape = MaterialTheme.shapes.medium
+                            )
+                    )
+                }
+            }
+            LaunchedEffect(Unit) {
+                viewModel.loadNews(selectedCategory)
             }
 
             val context = LocalContext.current
@@ -114,6 +149,7 @@ fun NewsScreen(
         }
     }
 }
+
 
 @Composable
 fun NewsList(
@@ -224,7 +260,6 @@ fun FavoritesList(
                 favorite = favorite,
                 onRemove = { viewModel.removeFromFavorites(favorite) }
             )
-            //Divider(color = Color.LightGray, thickness = 0.5.dp)
         }
     }
 }
