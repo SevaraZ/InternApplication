@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class MenuViewModel @Inject constructor (@ApplicationContext context: Context) : ViewModel() {
+class MenuViewModel @Inject constructor(@ApplicationContext context: Context) : ViewModel() {
     private val dataStoreManger = DataStoreManger(context)
 
     val themeModeState: Flow<Boolean> = dataStoreManger.getSettings().stateIn(

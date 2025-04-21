@@ -1,7 +1,5 @@
 package com.intern.presentation.news.screens
 
-import android.net.Uri
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -101,9 +99,11 @@ fun NewsScreen(
                     favorites = favorites,
                     navController = navController,
                     onclickItem = { article ->
-                        navController.currentBackStackEntry?.savedStateHandle?.set("article", article)
+                        navController.currentBackStackEntry?.savedStateHandle?.set(
+                            "article",
+                            article
+                        )
                         navController.navigate("news_detail")
-
 
 
                     }

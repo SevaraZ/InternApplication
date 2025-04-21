@@ -1,6 +1,5 @@
 package com.intern.data.network.weather
 
-import com.example.mcore.models.weather.WeatherResponse
 import retrofit2.http.GET
 import retrofit2.http.Query
 

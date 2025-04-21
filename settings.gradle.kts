@@ -23,6 +23,5 @@ rootProject.name = "InternApp"
 include(":app")
 include(":data")
 include(":presentation")
-
 include(":domain")
 include(":core")

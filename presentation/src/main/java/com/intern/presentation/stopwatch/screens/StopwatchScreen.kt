@@ -37,6 +37,14 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
+        Text(
+            text = "Stopwatch",
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = MaterialTheme.colorScheme.primary,
+            modifier = Modifier.padding(bottom = 16.dp)
+        )
+
         Card(
             modifier = Modifier
                 .padding(16.dp)
@@ -68,8 +76,10 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
 
                 )
             ) {
-                Text(if (viewModel.isRunning) "Stop"
-                else "Start")
+                Text(
+                    if (viewModel.isRunning) "Stop"
+                    else "Start"
+                )
             }
 
             Button(

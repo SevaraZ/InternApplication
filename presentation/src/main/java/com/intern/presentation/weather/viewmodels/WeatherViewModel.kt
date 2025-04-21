@@ -6,11 +6,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.intern.data.network.weather.RetrofitInstance
-import com.example.mcore.models.weather.WeatherResponse
 import kotlinx.coroutines.launch
 
-class WeatherViewModel : ViewModel(){
-    private val _weatherData = mutableStateOf<com.example.mcore.models.weather.WeatherResponse?>(null)
+class WeatherViewModel : ViewModel() {
+    private val _weatherData =
+        mutableStateOf<com.example.mcore.models.weather.WeatherResponse?>(null)
     val weatherData: State<com.example.mcore.models.weather.WeatherResponse?> = _weatherData
 
     private val _isRunning = mutableStateOf<Boolean>(false)
@@ -22,8 +22,8 @@ class WeatherViewModel : ViewModel(){
         }
     }
 
-    fun fetchWeather(){
-        if (!_isRunning.value){
+    fun fetchWeather() {
+        if (!_isRunning.value) {
             _isRunning.value = true
         }
 

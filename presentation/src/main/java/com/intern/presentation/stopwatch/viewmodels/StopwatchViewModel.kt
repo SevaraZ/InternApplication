@@ -1,6 +1,9 @@
 package com.intern.presentation.stopwatch.viewmodels
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableLongStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.delay
@@ -32,6 +35,7 @@ class StopwatchViewModel : ViewModel() {
         time = 0
         isRunning = false
     }
+
     fun getFormattedTime(): String {
         val hours = (time / 3600).toInt()
         val minutes = ((time % 3600) / 60).toInt()

@@ -2,8 +2,6 @@ package com.intern.presentation.news.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcore.local.news.FavoriteNewsEntity
-import com.example.mcore.models.news.Article
 import com.example.domian.usecase.DeleteFavoriteUseCase
 import com.example.domian.usecase.GetAllFavoritesUseCase
 import com.example.domian.usecase.GetAllNewsUseCase
@@ -27,8 +25,10 @@ class NewsViewModel @Inject constructor(
     private val _news = MutableStateFlow<List<com.example.mcore.models.news.Article>>(emptyList())
     val news: StateFlow<List<com.example.mcore.models.news.Article>> = _news.asStateFlow()
 
-    private val _favorites = MutableStateFlow<List<com.example.mcore.local.news.FavoriteNewsEntity>>(emptyList())
-    val favorites: StateFlow<List<com.example.mcore.local.news.FavoriteNewsEntity>> = _favorites.asStateFlow()
+    private val _favorites =
+        MutableStateFlow<List<com.example.mcore.local.news.FavoriteNewsEntity>>(emptyList())
+    val favorites: StateFlow<List<com.example.mcore.local.news.FavoriteNewsEntity>> =
+        _favorites.asStateFlow()
 
     private val _loading = MutableStateFlow(false)
     val loading: StateFlow<Boolean> = _loading.asStateFlow()

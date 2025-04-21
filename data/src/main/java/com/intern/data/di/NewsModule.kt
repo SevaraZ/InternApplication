@@ -45,5 +45,6 @@ class NewsModule {
     }
 
     @Provides
-    fun provideFavoriteNewsDao(db: AppDatabase): com.example.mcore.local.news.FavoriteNewsDao = db.favoriteNewsDao()
+    fun provideFavoriteNewsDao(db: AppDatabase): com.example.mcore.local.news.FavoriteNewsDao =
+        db.favoriteNewsDao()
 }

@@ -43,22 +43,16 @@ dependencies {
     implementation("androidx.room:room-runtime:2.7.0")
     kapt("androidx.room:room-compiler:2.7.0")
     implementation("androidx.room:room-ktx:2.7.0")
+    implementation("androidx.datastore:datastore-preferences:1.0.0")
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.kotlinx.coroutines.android)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
+    implementation(project(":core"))
+    implementation(project(":domain"))
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
-
-    implementation(libs.retrofit)
-    implementation(libs.converter.gson)
-    implementation(libs.kotlinx.coroutines.android)
-
-    implementation("androidx.datastore:datastore-preferences:1.0.0")
-    implementation(project(":core"))
-
-
-
-    implementation(project(":domain"))
-
-    implementation(libs.hilt.android)
-    kapt(libs.hilt.android.compiler)
 }

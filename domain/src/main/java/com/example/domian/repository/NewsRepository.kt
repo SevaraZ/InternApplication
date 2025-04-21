@@ -1,8 +1,7 @@
 package com.example.domian.repository
 
-import com.example.mcore.models.news.NewsResponse
 import com.example.mcore.local.news.FavoriteNewsEntity
-import com.example.mcore.models.news.Article
+import com.example.mcore.models.news.NewsResponse
 
 interface NewsRepository {
 

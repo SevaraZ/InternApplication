@@ -1,7 +1,7 @@
 package com.example.domian.usecase
 
-import com.example.mcore.models.news.NewsResponse
 import com.example.domian.repository.NewsRepository
+import com.example.mcore.models.news.NewsResponse
 import javax.inject.Inject
 
 class GetAllNewsUseCase @Inject constructor(

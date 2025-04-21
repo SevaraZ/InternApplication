@@ -6,4 +6,4 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class SourceData(
     val name: String
-):Parcelable
+) : Parcelable
