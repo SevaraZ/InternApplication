@@ -112,7 +112,7 @@ fun WeatherDetails(weatherData: com.example.mcore.models.weather.WeatherResponse
     }
 
     Text(
-        "Humidity: ${weatherData?.main?.humidity}%",
+        "\uD83D\uDCA7Humidity: ${weatherData?.main?.humidity}%",
         fontSize = 20.sp,
         color = MaterialTheme.colorScheme.tertiary,
         modifier = Modifier.padding(12.dp)
