@@ -57,12 +57,9 @@ fun NewsScreen(
     viewModel: NewsViewModel = hiltViewModel(),
     navController: NavHostController
 ) {
-    val categories = listOf("technology", "sports", "health", "business", "science", "entertainment")
-    var selectedCategory by remember { mutableStateOf("general") }
     val news by viewModel.news.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
     var selectedTab by remember { mutableIntStateOf(0)
-
     }
 
     Scaffold(
@@ -99,32 +96,6 @@ fun NewsScreen(
                 )
             }
 
-            LazyRow(
-                modifier = Modifier.padding(8.dp),
-                horizontalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(categories) { category ->
-                    val isSelected = category == selectedCategory
-                    Text(
-                        text = category.replaceFirstChar { it.uppercase() },
-                        color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
-                        modifier = Modifier
-                            .clickable {
-                                selectedCategory = category
-                                viewModel.loadNews(category)
-                            }
-                            .padding(horizontal = 12.dp, vertical = 8.dp)
-                            .background(
-                                color = if (isSelected) Color.Gray  else Color.Transparent,
-                                shape = MaterialTheme.shapes.medium
-                            )
-                    )
-                }
-            }
-            LaunchedEffect(Unit) {
-                viewModel.loadNews(selectedCategory)
-            }
-
             val context = LocalContext.current
 
             when (selectedTab) {
@@ -159,6 +130,34 @@ fun NewsList(
     navController: NavHostController,
     onclickItem: (Article) -> Unit
 ) {
+    val categories = listOf("technology", "sports", "health", "business", "science", "entertainment")
+    var selectedCategory by remember { mutableStateOf("general") }
+    LazyRow(
+        modifier = Modifier.padding(8.dp),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        items(categories) { category ->
+            val isSelected = category == selectedCategory
+            Text(
+                text = category.replaceFirstChar { it.uppercase() },
+                color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
+                modifier = Modifier
+                    .clickable {
+                        selectedCategory = category
+                        viewModel.loadNews(category)
+                    }
+                    .padding(horizontal = 12.dp, vertical = 8.dp)
+                    .background(
+                        color = if (isSelected) Color.Gray  else Color.Transparent,
+                        shape = MaterialTheme.shapes.medium
+                    )
+            )
+        }
+    }
+    LaunchedEffect(Unit) {
+        viewModel.loadNews(selectedCategory)
+    }
+
     LazyColumn(modifier = Modifier.fillMaxSize()) {
         items(news) { article ->
             NewsItem(
