@@ -6,38 +6,65 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
+import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.intern.presentation.weather.viewmodels.WeatherViewModel
 
-
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
+fun WeatherScreen(viewModel: WeatherViewModel = viewModel(),
+                  navController: NavHostController) {
     val weatherData by viewModel.weatherData
     val isRunning by viewModel.isRunning
 
     Column(
         modifier = Modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()
             .fillMaxSize()
             .padding(16.dp)
             .background(color = MaterialTheme.colorScheme.secondary),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 8.dp),
+            horizontalArrangement = Arrangement.Start
+        ) {
+            IconButton(onClick = { navController.popBackStack() }) {
+                Icon(
+                    imageVector = Icons.Default.ArrowBack,
+                    contentDescription = "Back",
+                    tint = MaterialTheme.colorScheme.primary
+                )
+            }
+        }
 
         Text(
             text = "Current Weather ⛅\uFE0F",
@@ -46,11 +73,13 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel()) {
             color = MaterialTheme.colorScheme.primary,
             modifier = Modifier.padding(bottom = 16.dp)
         )
+
         WeatherCard(weatherData, isRunning)
         RefreshButton(viewModel)
-        LoadingIndicator()
+
     }
 }
+
 
 @Composable
 fun WeatherCard(
@@ -76,7 +105,7 @@ fun WeatherCard(
 @Composable
 fun LoadingIndicator() {
     Text(
-        "Loading",
+        "Loading...",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.tertiary,
         fontWeight = FontWeight.Bold,
@@ -125,7 +154,6 @@ fun WeatherDetails(weatherData: com.example.mcore.models.weather.WeatherResponse
         modifier = Modifier.padding(12.dp)
     )
 }
-
 @Composable
 fun RefreshButton(viewModel: WeatherViewModel) {
     Row(
@@ -143,4 +171,6 @@ fun RefreshButton(viewModel: WeatherViewModel) {
         }
     }
 }
+
+
 

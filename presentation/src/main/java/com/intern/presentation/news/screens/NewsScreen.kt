@@ -15,6 +15,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -39,9 +40,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -76,7 +77,16 @@ fun NewsScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.secondary
-                )
+                ),
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = MaterialTheme.colorScheme.primary
+                        )
+                    }
+                },
             )
         }
     ) {
@@ -99,7 +109,6 @@ fun NewsScreen(
                 )
             }
 
-            val context = LocalContext.current
 
             when (selectedTab) {
                 0 -> NewsList(
@@ -133,7 +142,8 @@ fun NewsList(
     navController: NavHostController,
     onclickItem: (Article) -> Unit
 ) {
-    val categories = listOf("technology", "sports", "health", "business", "science", "entertainment")
+    val categories = listOf("technology", "sports", "health",
+        "business", "science", "entertainment")
     var selectedCategory by remember { mutableStateOf("general") }
 
     val isRefreshing by viewModel.isRefreshing.collectAsState()
@@ -153,9 +163,11 @@ fun NewsList(
                         viewModel.loadNews(category)
                     }
                     .padding(horizontal = 12.dp, vertical = 8.dp)
+                    .alpha(0.5F)
                     .background(
                         color = if (isSelected) Color.Gray else Color.Transparent,
-                        shape = MaterialTheme.shapes.medium
+
+
                     )
             )
         }
@@ -253,7 +265,8 @@ fun NewsItem(
 
                 IconButton(onClick = onFavoriteClick) {
                     Icon(
-                        imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
+                        imageVector = if (isFavorite) Icons.Default.Favorite
+                        else Icons.Default.FavoriteBorder,
                         contentDescription = "Add to favorites",
                         tint = if (isFavorite) Color.Red else Color.Gray
                     )
@@ -268,15 +281,32 @@ fun FavoritesList(
     viewModel: NewsViewModel,
     favorites: List<FavoriteNewsEntity>
 ) {
-    LazyColumn(modifier = Modifier.fillMaxSize()) {
-        items(favorites) { favorite ->
-            FavoriteItem(
-                favorite = favorite,
-                onRemove = { viewModel.removeFromFavorites(favorite) }
+    if (favorites.isEmpty()) {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp),
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = androidx.compose.ui.Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "No favorites yet",
+                color = MaterialTheme.colorScheme.primary,
+                fontSize = 20.sp
             )
+        }
+    } else {
+        LazyColumn(modifier = Modifier.fillMaxSize()) {
+            items(favorites) { favorite ->
+                FavoriteItem(
+                    favorite = favorite,
+                    onRemove = { viewModel.removeFromFavorites(favorite) }
+                )
+            }
         }
     }
 }
+
 
 @Composable
 fun FavoriteItem(favorite: FavoriteNewsEntity, onRemove: () -> Unit) {

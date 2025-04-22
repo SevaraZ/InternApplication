@@ -3,6 +3,7 @@ package com.intern.presentation.navigation
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -12,6 +13,7 @@ import com.intern.presentation.mainmenu.viewModel.MenuViewModel
 import com.intern.presentation.news.screens.NewsDetailScreen
 import com.intern.presentation.news.screens.NewsScreen
 import com.intern.presentation.stopwatch.screens.StopwatchScreen
+import com.intern.presentation.stopwatch.viewmodels.StopwatchViewModel
 import com.intern.presentation.weather.screens.WeatherScreen
 
 @Composable
@@ -22,8 +24,8 @@ fun InternAppScreen(viewModel: MenuViewModel = hiltViewModel()) {
     InternAppTheme(darkTheme = darkTheme.value) {
         NavHost(navController = navController, startDestination = "main_menu") {
             composable("main_menu") { MainMenu(navController) }
-            composable("weather_screen") { WeatherScreen() }
-            composable("stopwatch_screen") { StopwatchScreen() }
+            composable("weather_screen") { WeatherScreen(navController = navController) }
+            composable("stopwatch_screen") { StopwatchScreen( navController = navController) }
             composable("news_screen") { NewsScreen(navController = navController) }
 
             composable("news_detail") { NewsDetailScreen(navController = navController) }

@@ -2,12 +2,12 @@ package com.intern.presentation.news.viewmodels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.mcore.local.news.FavoriteNewsEntity
-import com.example.mcore.models.news.Article
 import com.example.domian.usecase.DeleteFavoriteUseCase
 import com.example.domian.usecase.GetAllFavoritesUseCase
 import com.example.domian.usecase.GetAllNewsUseCase
 import com.example.domian.usecase.InsertFavoriteUseCase
+import com.example.mcore.local.news.FavoriteNewsEntity
+import com.example.mcore.models.news.Article
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -23,6 +23,7 @@ class NewsViewModel @Inject constructor(
     private val deleteUseCase: DeleteFavoriteUseCase,
     private val getAllFavoritesUseCase: GetAllFavoritesUseCase
 
+
 ) : ViewModel() {
     private val _news = MutableStateFlow<List<Article>>(emptyList())
     val news: StateFlow<List<Article>> = _news.asStateFlow()
@@ -36,6 +37,7 @@ class NewsViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean> = _isRefreshing.asStateFlow()
 
+
     fun refreshNews() {
         viewModelScope.launch {
             _isRefreshing.value = true
@@ -45,7 +47,7 @@ class NewsViewModel @Inject constructor(
                 )
                 _news.value = response.articles
             } catch (e: Exception) {
-                
+
             } finally {
                 _isRefreshing.value = false
             }

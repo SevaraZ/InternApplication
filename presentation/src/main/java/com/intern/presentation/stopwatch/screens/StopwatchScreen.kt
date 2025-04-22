@@ -7,13 +7,20 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -24,19 +31,41 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.intern.presentation.stopwatch.viewmodels.StopwatchViewModel
 
 
 @Composable
-fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
+fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel(),
+                    navController: NavHostController) {
     Column(
         modifier = Modifier
+            .statusBarsPadding()
+            .navigationBarsPadding()
             .fillMaxSize()
-            .padding(16.dp)
-            .background(MaterialTheme.colorScheme.secondary),
+            .background(MaterialTheme.colorScheme.secondary)
+            .padding(16.dp),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(top = 8.dp, bottom = 16.dp),
+            horizontalArrangement = Arrangement.Start,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+
+                IconButton(onClick = { navController.popBackStack() }) {
+                    Icon(
+                        imageVector = Icons.Default.ArrowBack,
+                        contentDescription = "Back",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+
+        }
 
         Text(
             text = "Stopwatch",
@@ -109,6 +138,7 @@ fun StopwatchScreen(viewModel: StopwatchViewModel = viewModel()) {
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(top = 8.dp)
+                .height(400.dp)
         ) {
             items(viewModel.laps.size) { index ->
                 Text(
