@@ -1,5 +1,6 @@
 package com.example.mcore.local.news
 
+import androidx.annotation.Keep
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert

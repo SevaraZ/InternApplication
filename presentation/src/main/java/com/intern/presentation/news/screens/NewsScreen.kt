@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -154,22 +155,27 @@ fun NewsList(
     ) {
         items(categories) { category ->
             val isSelected = category == selectedCategory
-            Text(
-                text = category.replaceFirstChar { it.uppercase() },
-                color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
+            Box(
                 modifier = Modifier
-                    .clickable {
-                        selectedCategory = category
-                        viewModel.loadNews(category)
-                    }
-                    .padding(horizontal = 12.dp, vertical = 8.dp)
+                    .padding(horizontal = 8.dp, vertical = 8.dp)
                     .alpha(0.5F)
                     .background(
                         color = if (isSelected) Color.Gray else Color.Transparent,
+                        shape = MaterialTheme.shapes.medium
+                        )
+            ) {
+                Text(
+                    text = category.replaceFirstChar { it.uppercase() },
+                    color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
+                    modifier = Modifier
+                        .clickable {
+                            selectedCategory = category
+                            viewModel.loadNews(category)
+                        }
+                        .padding(horizontal = 12.dp, vertical = 8.dp)
 
-
-                    )
-            )
+                )
+            }
         }
     }
 
