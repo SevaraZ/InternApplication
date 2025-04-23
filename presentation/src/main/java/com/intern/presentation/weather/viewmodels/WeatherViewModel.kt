@@ -23,16 +23,19 @@ class WeatherViewModel : ViewModel() {
     }
 
     fun fetchWeather() {
-        if (!_isRunning.value) {
-            _isRunning.value = true
-        }
-
         viewModelScope.launch {
-            _isRunning.value = false
-            val res = RetrofitInstance.api.getWeather()
-            _weatherData.value = res
+            _isRunning.value = true
+            try {
+                val res = RetrofitInstance.api.getWeather()
+                _weatherData.value = res
+            } catch (e: Exception) {
+                //todo
+            } finally {
+                _isRunning.value = false
+            }
         }
     }
+
 }
 
 

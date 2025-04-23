@@ -64,7 +64,8 @@ fun NewsScreen(
 ) {
     val news by viewModel.news.collectAsState()
     val favorites by viewModel.favorites.collectAsState()
-    var selectedTab by remember { mutableIntStateOf(0)
+    var selectedTab by remember {
+        mutableIntStateOf(0)
     }
 
     Scaffold(
@@ -90,8 +91,7 @@ fun NewsScreen(
                 },
             )
         }
-    ) {
-        padding ->
+    ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             TabRow(
                 selectedTabIndex = selectedTab,
@@ -134,7 +134,6 @@ fun NewsScreen(
     }
 }
 
-
 @Composable
 fun NewsList(
     viewModel: NewsViewModel,
@@ -143,38 +142,79 @@ fun NewsList(
     navController: NavHostController,
     onclickItem: (Article) -> Unit
 ) {
-    val categories = listOf("technology", "sports", "health",
-        "business", "science", "entertainment")
+    val categories = listOf(
+        "technology", "sports", "health",
+        "business", "science", "entertainment"
+    )
     var selectedCategory by remember { mutableStateOf("general") }
 
     val isRefreshing by viewModel.isRefreshing.collectAsState()
+    val isLoading by viewModel.loading.collectAsState()
 
-    LazyRow(
-        modifier = Modifier.padding(8.dp),
-        horizontalArrangement = Arrangement.spacedBy(8.dp)
-    ) {
-        items(categories) { category ->
-            val isSelected = category == selectedCategory
+    Column {
+        LazyRow(
+            modifier = Modifier.padding(8.dp),
+            horizontalArrangement = Arrangement.spacedBy(8.dp)
+        ) {
+            items(categories) { category ->
+                val isSelected = category == selectedCategory
+                Box(
+                    modifier = Modifier
+                        .padding(horizontal = 8.dp, vertical = 8.dp)
+                        .alpha(0.5F)
+                        .background(
+                            color = if (isSelected) Color.Gray else Color.Transparent,
+                            shape = MaterialTheme.shapes.medium
+                        )
+                ) {
+                    Text(
+                        text = category.replaceFirstChar { it.uppercase() },
+                        color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
+                        modifier = Modifier
+                            .clickable {
+                                selectedCategory = category
+                                viewModel.loadNews(category)
+                            }
+                            .padding(horizontal = 12.dp, vertical = 8.dp)
+                    )
+                }
+            }
+        }
+
+        if (isLoading) {
             Box(
                 modifier = Modifier
-                    .padding(horizontal = 8.dp, vertical = 8.dp)
-                    .alpha(0.5F)
-                    .background(
-                        color = if (isSelected) Color.Gray else Color.Transparent,
-                        shape = MaterialTheme.shapes.medium
-                        )
+                    .fillMaxSize()
+                    .padding(top = 32.dp),
+                contentAlignment = androidx.compose.ui.Alignment.Center
             ) {
-                Text(
-                    text = category.replaceFirstChar { it.uppercase() },
-                    color = if (isSelected) Color.White else MaterialTheme.colorScheme.primary,
-                    modifier = Modifier
-                        .clickable {
-                            selectedCategory = category
-                            viewModel.loadNews(category)
-                        }
-                        .padding(horizontal = 12.dp, vertical = 8.dp)
-
+                androidx.compose.material3.CircularProgressIndicator(
+                    color = MaterialTheme.colorScheme.primary
                 )
+            }
+        } else {
+            SwipeRefresh(
+                state = rememberSwipeRefreshState(isRefreshing),
+                onRefresh = { viewModel.refreshNews() }
+            ) {
+                LazyColumn(modifier = Modifier.fillMaxSize()) {
+                    items(news) { article ->
+                        NewsItem(
+                            article = article,
+                            isFavorite = favorites.any { it.url == article.url },
+                            onFavoriteClick = {
+                                if (favorites.any { it.url == article.url }) {
+                                    favorites.firstOrNull { it.url == article.url }?.let {
+                                        viewModel.removeFromFavorites(it)
+                                    }
+                                } else {
+                                    viewModel.addToFavorites(article)
+                                }
+                            },
+                            onclickItem = { onclickItem(article) }
+                        )
+                    }
+                }
             }
         }
     }
@@ -182,6 +222,7 @@ fun NewsList(
     LaunchedEffect(Unit) {
         viewModel.loadNews(selectedCategory)
     }
+
 
     SwipeRefresh(
         state = rememberSwipeRefreshState(isRefreshing),
@@ -229,14 +270,36 @@ fun NewsItem(
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
             article.urlToImage?.let { url ->
-                Image(
-                    painter = rememberAsyncImagePainter(url),
-                    contentDescription = null,
+                val painter = rememberAsyncImagePainter(article.urlToImage)
+                val painterState = painter.state
+
+                Box(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .height(200.dp),
-                    contentScale = ContentScale.Crop
-                )
+                        .height(200.dp)
+                ) {
+                    Image(
+                        painter = painter,
+                        contentDescription = null,
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentScale = ContentScale.Crop
+                    )
+
+                    if (painterState is coil.compose.AsyncImagePainter.State.Loading) {
+                        Box(
+                            modifier = Modifier
+                                .fillMaxSize()
+                                .background(Color.LightGray.copy(alpha = 0.3f)),
+                            contentAlignment = androidx.compose.ui.Alignment.Center
+                        ) {
+                            androidx.compose.material3.CircularProgressIndicator(
+                                color = MaterialTheme.colorScheme.primary
+                            )
+                        }
+                    }
+                }
+
                 Spacer(modifier = Modifier.height(8.dp))
             }
 
