@@ -10,6 +10,8 @@
     <string name="weather">Weather</string>
     <string name="stopwatch">Stopwatch</string>
     <string name="news">News</string>
+    <string name="dark_theme">Dark Theme</string>
+    <string name="light_theme">Light Theme</string>
 
 
 </resources>
