@@ -37,14 +37,15 @@ class NewsViewModel @Inject constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean> = _isRefreshing.asStateFlow()
 
+    private var currentCategory = "general"
+
+
 
     fun refreshNews() {
         viewModelScope.launch {
             _isRefreshing.value = true
             try {
-                val response = getAllNewsUseCase(
-                    category = "general"
-                )
+                val response = getAllNewsUseCase(currentCategory)
                 _news.value = response.articles
             } catch (e: Exception) {
 
@@ -53,6 +54,7 @@ class NewsViewModel @Inject constructor(
             }
         }
     }
+
 
     init {
         loadNews()
@@ -63,15 +65,17 @@ class NewsViewModel @Inject constructor(
         viewModelScope.launch {
             _loading.value = true
             try {
+                currentCategory = category
                 val response = getAllNewsUseCase(category)
                 _news.value = response.articles
             } catch (e: Exception) {
-                //todo
+
             } finally {
                 _loading.value = false
             }
         }
     }
+
 
     fun addToFavorites(article: Article) {
         viewModelScope.launch {
