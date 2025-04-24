@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Home
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -25,37 +24,34 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.semantics.Role.Companion.Button
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.intern.presentation.weather.viewmodels.WeatherViewModel
 
 @Composable
-fun WeatherScreen(viewModel: WeatherViewModel = viewModel(),
-                  navController: NavHostController) {
+fun WeatherScreen(
+    viewModel: WeatherViewModel = viewModel(),
+    navController: NavHostController
+) {
     val weatherData by viewModel.weatherData
     val isRunning by viewModel.isRunning
 
     Column(
         modifier = Modifier
+            .fillMaxSize()
+            .background(MaterialTheme.colorScheme.secondary)
             .statusBarsPadding()
             .navigationBarsPadding()
-            .fillMaxSize()
-            .padding(16.dp)
-            .background(color = MaterialTheme.colorScheme.secondary),
-        verticalArrangement = Arrangement.Center,
-        horizontalAlignment = Alignment.CenterHorizontally
     ) {
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp),
-            horizontalArrangement = Arrangement.Start
+                .padding(16.dp),
+            verticalAlignment = Alignment.CenterVertically
         ) {
             IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
@@ -66,19 +62,32 @@ fun WeatherScreen(viewModel: WeatherViewModel = viewModel(),
             }
         }
 
-        Text(
-            text = "Current Weather ⛅\uFE0F",
-            fontSize = 28.sp,
-            fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.primary,
-            modifier = Modifier.padding(bottom = 16.dp)
-        )
 
-        WeatherCard(weatherData, isRunning)
-        RefreshButton(viewModel)
-
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(horizontal = 16.dp, vertical = 8.dp)
+                .background(
+                    color = MaterialTheme.colorScheme.secondary,
+                    shape = RoundedCornerShape(16.dp)
+                )
+                .padding(16.dp), // Inner padding
+            verticalArrangement = Arrangement.Center,
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "Current Weather ⛅",
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.padding(start = 8.dp)
+            )
+            WeatherCard(weatherData, isRunning)
+            RefreshButton(viewModel)
+        }
     }
 }
+
 
 
 @Composable
@@ -118,7 +127,7 @@ fun LoadingIndicator() {
 @Composable
 fun WeatherDetails(weatherData: com.example.mcore.models.weather.WeatherResponse?) {
     Text(
-        "\uD83C\uDF21\uFE0FTemperature: ${weatherData?.main?.temp} °C",
+        "\uD83C\uDF21\uFE0FTemperature:${weatherData?.main?.temp}°C",
         fontSize = 24.sp,
         color = MaterialTheme.colorScheme.tertiary,
         fontWeight = FontWeight.Bold,
